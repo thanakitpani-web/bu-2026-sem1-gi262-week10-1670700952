@@ -8,8 +8,9 @@ namespace MidtermExam.Prob04
         /// <param name="values">array ที่อาจไม่เรียงลำดับ มีค่าซ้ำหรือตัวเลขติดลบได้</param>
         /// <param name="target">ค่าที่ต้องการค้นหา</param>
         /// <returns>
-        /// - index แรกที่พบ เริ่มนับจาก 0 
-        /// - ถ้าไม่พบ หรือ input เป็น null หรือเป็น array ว่าง ให้ return -1</returns>
+        /// - index แรกที่พบ เริ่มนับจาก 0
+        /// - ถ้าไม่พบ หรือ input เป็น null หรือเป็น array ว่าง ให้ return -1
+        /// </returns>
         /// <remarks>
         /// ห้ามเรียงลำดับหรือแก้ไข array และห้ามใช้เมธอดค้นหาสำเร็จรูปหรือ LINQ
         /// ตัวอย่าง: values = [4, 2, 4, 1], target = 4 ต้องคืน 0 ไม่ใช่ 2
@@ -17,8 +18,17 @@ namespace MidtermExam.Prob04
         /// </remarks>
         public int AS04_SequentialSearch(int[] values, int target)
         {
-            // TODO: เขียนคำตอบแทนคำสั่ง throw ด้านล่าง
-            throw new NotImplementedException();
+            // ตรวจสมาชิกทีละตัวได้มากสุด n ตัว จึงใช้เวลา O(n)
+            if (values == null || values.Length == 0)
+                return -1;
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                if (values[i] == target)
+                    return i;
+            }
+
+            return -1;
         }
 
         /// <summary>ข้อ 04.2: ค้นหาตัวเลขด้วย Binary Search โดยลดช่วงค้นหาประมาณครึ่งหนึ่งต่อขั้น</summary>
@@ -37,14 +47,27 @@ namespace MidtermExam.Prob04
         /// </remarks>
         public int AS05_BinarySearch(int[] sortedValues, int target)
         {
-            // TODO: เขียนคำตอบแทนคำสั่ง throw ด้านล่าง
-            // 1. จัดการ input ที่เป็น null/ว่าง และกำหนดขอบเขต index ของช่วงค้นหา
-            // 2. เลือก index ตรงกลางของช่วง แล้วเปรียบเทียบค่าตรงกลางกับ target
-            // 3. ถ้ายังไม่ตรง ให้เลือกค้นหาต่อเฉพาะครึ่งซ้ายหรือครึ่งขวาตามลำดับค่าที่เรียงไว้
-            //    ต้องตัดตำแหน่งที่ตรวจแล้วออก เพื่อให้ช่วงเล็กลงและไม่เกิดการวนซ้ำไม่จบ
-            // 4. ถ้าช่วงค้นหาหมดและยังไม่พบ ให้คืนค่าที่โจทย์กำหนดสำหรับกรณีไม่พบ
-            // ลองตรวจกรณีสมาชิกเดียว สองสมาชิก เป้าหมายอยู่หัว/ท้าย และเป้าหมายอยู่นอกช่วงค่า
-            throw new NotImplementedException();
+            // แต่ละรอบลดช่วงค้นหาเหลือประมาณครึ่งหนึ่ง จึงใช้เวลา O(log n)
+            if (sortedValues == null || sortedValues.Length == 0)
+                return -1;
+
+            int left = 0;
+            int right = sortedValues.Length - 1;
+
+            while (left <= right)
+            {
+                int middle = left + (right - left) / 2;
+
+                if (sortedValues[middle] == target)
+                    return middle;
+
+                if (sortedValues[middle] < target)
+                    left = middle + 1;
+                else
+                    right = middle - 1;
+            }
+
+            return -1;
         }
     }
 }

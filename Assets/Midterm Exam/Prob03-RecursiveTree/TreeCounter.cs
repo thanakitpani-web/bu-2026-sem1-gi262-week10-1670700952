@@ -10,14 +10,16 @@ namespace MidtermExam.Prob03
         /// <remarks>
         /// นับทุกโหนดโดยไม่ขึ้นกับค่า value แม้ค่าซ้ำกันก็ต้องนับเป็นคนละโหนด
         /// ต้องสำรวจทั้งต้นไม้ย่อยซ้ายและขวา โดยไม่แก้ไขค่าหรือการเชื่อมต่อของโหนด
-        /// ตัวอย่าง: 
+        /// ตัวอย่าง:
         /// - root node มี child node ซ้ายและขวาอย่างละหนึ่งโหนด คืน 3
         /// - root node (ไม่มี child node ใดๆ) คืน 1
         /// </remarks>
         public int AS03_CountTotalNode(Node root)
         {
-            // TODO: เขียนคำตอบแทนคำสั่ง throw ด้านล่าง
-            throw new NotImplementedException();
+            if (root == null)
+                return 0;
+
+            return 1 + AS03_CountTotalNode(root.left) + AS03_CountTotalNode(root.right);
         }
     }
 }

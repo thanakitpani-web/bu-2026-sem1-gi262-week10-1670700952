@@ -17,13 +17,28 @@ namespace MidtermExam.Prob01
         /// <remarks>
         /// ตัวแปร Queue<string> alphabets หลังจากจบ function จะต้องยังคงข้อมูลให้เหมือนเดิมทั้งจำนวนและลำดับ
         /// HINT: อ่านข้อมูลด้วย Dequeue() และใส่กลับด้วย Enqueue() ในคิวที่รับมา
-        /// ตัวอย่าง: ["a", "b", "e", "a"] จะต้อง return 3 
+        /// ตัวอย่าง: ["a", "b", "e", "a"] จะต้อง return 3
         /// และคิวหลังเรียกยังเป็น ["a", "b", "e", "a"] เหมือนเดิม
         /// </remarks>
         public int AS01_CountVowels(Queue<string> alphabets)
         {
-            // TODO: เขียนคำตอบแทนคำสั่ง throw exception ด้านล่าง
-            throw new NotImplementedException();
+            if (alphabets == null || alphabets.Count == 0)
+                return 0;
+
+            int count = 0;
+            int originalCount = alphabets.Count;
+
+            for (int i = 0; i < originalCount; i++)
+            {
+                string item = alphabets.Dequeue();
+
+                if (item == "a" || item == "e" || item == "i" || item == "o" || item == "u")
+                    count++;
+
+                alphabets.Enqueue(item);
+            }
+
+            return count;
         }
     }
 }
